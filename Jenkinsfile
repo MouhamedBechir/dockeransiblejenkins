@@ -10,7 +10,7 @@ pipeline{
         stage('SCM'){
             steps{
                 git credentialsId: 'github', 
-                    url: 'https://github.com/javahometech/dockeransiblejenkins'
+                    url: 'https://github.com/MouhamedBechir/dockeransiblejenkins.git'
             }
         }
         
@@ -20,7 +20,7 @@ pipeline{
             }
         }
         
-        stage('Docker Build'){
+        /*stage('Docker Build'){
             steps{
                 sh "docker build . -t kammana/hariapp:${DOCKER_TAG} "
             }
@@ -40,7 +40,7 @@ pipeline{
             steps{
               ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
             }
-        }
+        }*/
     }
 }
 
