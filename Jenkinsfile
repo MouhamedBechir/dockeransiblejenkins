@@ -3,7 +3,9 @@ pipeline{
     tools {
       maven 'maven3'
     }
+
     environment {
+      DOCKERHUB_CREDENTIALS=credentials('docker-hub')
       DOCKER_TAG = getVersion()
     }
     stages{
@@ -28,9 +30,7 @@ pipeline{
         
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u kraiemmouhamedbechir -p ${dockerHubPwd}"
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 
                 sh "docker push kraiemmouhamedbechir/app:${DOCKER_TAG} "
             }
