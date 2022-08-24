@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent {label 'docker'}
     tools {
       maven 'maven3'
     }
@@ -14,11 +14,11 @@ pipeline{
             }
         }
         
-        /*stage('Maven Build'){
+        stage('Maven Build'){
             steps{
                 sh "mvn clean package"
             }
-        }*/
+        }
         
         stage('Docker Build'){
             steps{
@@ -36,11 +36,11 @@ pipeline{
             }
         }
         
-        stage('Docker Deploy'){
+        /*stage('Docker Deploy'){
             steps{
               ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
             }
-        }
+        }*/
     }
 }
 
